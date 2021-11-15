@@ -1,0 +1,96 @@
+stages:
+  - desktop
+  - adaptive
+  - javascript
+  - a11y
+  - crossbrowser
+
+desktop:
+  stage: desktop
+  only:
+    - homework
+  image: registry.skillbox.ru/buildkite/puppeteer
+  before_script:
+    - npm install --no-optional
+  script:
+    - node -v
+    - npm run desktop
+  artifacts:
+    when: always
+    paths:
+      - test/__image_snapshots__/__diff_output__
+    expire_in: 1 week
+  tags:
+    - students
+
+adaptive:
+  stage: adaptive
+  only:
+    - homework
+  image: registry.skillbox.ru/buildkite/puppeteer
+  before_script:
+    - npm install --no-optional
+  script:
+    - node -v
+    - npm run adaptive
+  artifacts:
+    when: always
+    paths:
+      - test/__image_snapshots__/__diff_output__
+    expire_in: 1 week
+  tags:
+    - students
+
+javascript:
+  stage: javascript
+  only:
+    - homework
+  image: registry.skillbox.ru/buildkite/puppeteer
+  before_script:
+    - npm install --no-optional
+  script:
+    - node -v
+    - npm run full
+  artifacts:
+    when: always
+    paths:
+      - test/__image_snapshots__/__diff_output__
+    expire_in: 1 week
+  tags:
+    - students
+
+a11y:
+  stage: a11y
+  only:
+    - homework
+  image: registry.skillbox.ru/buildkite/puppeteer
+  before_script:
+    - npm install --no-optional
+  script:
+    - node -v
+    - npm run full
+  artifacts:
+    when: always
+    paths:
+      - test/__image_snapshots__/__diff_output__
+    expire_in: 1 week
+  tags:
+    - students
+
+crossbrowser:
+  stage: crossbrowser
+  only:
+    - homework
+  image: registry.skillbox.ru/buildkite/puppeteer
+  before_script:
+    - npm install --no-optional
+  script:
+    - node -v
+    - npm run full
+  artifacts:
+    when: always
+    paths:
+      - test/__image_snapshots__/__diff_output__
+    expire_in: 1 week
+  tags:
+    - students
