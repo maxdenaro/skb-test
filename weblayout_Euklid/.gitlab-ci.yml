@@ -1,0 +1,72 @@
+stages:
+  - test
+
+common:
+  stage: test
+  image: registry.skillbox.ru/node:14-alpine
+  before_script:
+    - npm ci --no-optional
+  script:
+    - node -v
+    - npm run test:editorconfig
+    - npm run test:w3c
+  tags:
+    - students
+
+desktop:
+  stage: test
+  image: registry.skillbox.ru/buildkite/puppeteer
+  only:
+    - desktop
+    - adaptive
+    - js-base
+    - ally
+    - crossbrowser-support
+  before_script:
+    - npm ci --no-optional
+  script:
+    - node -v
+    - npm run test:desktop
+  artifacts:
+    when: always
+    paths:
+      - test/__image_snapshots__/__diff_output__
+    expire_in: 1 week
+  tags:
+    - students
+
+adaptive:
+  stage: test
+  image: registry.skillbox.ru/buildkite/puppeteer
+  only:
+    - adaptive
+    - js-base
+    - ally
+    - crossbrowser-support
+  before_script:
+    - npm ci --no-optional
+  script:
+    - node -v
+    - npm run test:adaptive
+  artifacts:
+    when: always
+    paths:
+      - test/__image_snapshots__/__diff_output__
+    expire_in: 1 week
+  tags:
+    - students
+
+js-base:
+  stage: test
+  image: registry.skillbox.ru/node:14-alpine
+  only:
+    - js-base
+    - ally
+    - crossbrowser-support
+  before_script:
+    - npm ci --no-optional
+  script:
+    - node -v
+    - npm run test:eslint
+  tags:
+    - students
